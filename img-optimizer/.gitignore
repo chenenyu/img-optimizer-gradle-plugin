@@ -1,0 +1,9 @@
+*.DS_Store
+*.iml
+.idea
+out
+build
+.gradle
+repo
+maven-publish.gradle
+local.properties
