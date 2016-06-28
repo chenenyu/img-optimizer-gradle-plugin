@@ -53,8 +53,6 @@ class ImgOptimizerPlugin implements Plugin<Project> {
                         Constants.TASK_NAME.concat(variant.buildType.name.capitalize())) {
                     it.description = "Optimize ${variant.buildType.name} images"
                     it.imgDirs = imgDirectories
-                    it.optimizerType = ext.optimizer
-                    it.apiKey = ext.apiKey
                     it.triggerSize = ext.triggerSize
                 }
             }
