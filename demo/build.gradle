@@ -1,3 +1,5 @@
+apply plugin: 'com.android.application'
+
 //buildscript {
 //    repositories {
 //        mavenCentral()
@@ -9,11 +11,10 @@
 //        classpath 'com.chenenyu:img-optimizer:0.0.1'
 //    }
 //}
-apply plugin: 'com.android.application'
 //apply plugin: 'img-optimizer'
-
+//
 //optimizerOptions {
-//    triggerSize 50
+//    triggerSize 5
 //}
 
 android {
