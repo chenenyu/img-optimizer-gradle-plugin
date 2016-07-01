@@ -22,9 +22,7 @@ class Logger {
     private Logger() {}
 
     static def getLogger(Project project) {
-        if (file == null || !file.exists()) {
-            file = new File(project.rootDir.absolutePath + File.separator + LOG_FILE_NAME)
-        }
+        checkFile(project)
         if (instance == null) {
             synchronized (Logger.class) {
                 if (instance == null) {
@@ -35,13 +33,20 @@ class Logger {
         return instance
     }
 
+    private static def checkFile(Project project) {
+        if (project != null && file == null) {
+            file = new File(project.projectDir.absolutePath + File.separator + LOG_FILE_NAME)
+            new PrintWriter(file).close()
+        }
+    }
+
     private def write(String logLevel, String msg) {
-        writer = new PrintWriter(BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(file, true)), "UTF-8"), true)
+        writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file, true), "UTF-8")), true)
         try {
             writer.write(getDateTime() + "  " + logLevel)
             writer.write(msg + "\r\n")
-            writer.write("----------------------------------------")
+            writer.write("----------------------------------------\r\n")
         } catch (Exception e) {
         } finally {
             writer.close();
