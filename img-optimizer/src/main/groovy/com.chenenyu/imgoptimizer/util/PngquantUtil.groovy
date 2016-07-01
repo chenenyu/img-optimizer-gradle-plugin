@@ -14,14 +14,14 @@ class PngquantUtil {
         if (!pngquantDir.exists()) {
             pngquantDir.mkdirs()
         }
-        def pngFile = new File(getPngquantFilePath())
+        def pngFile = new File(getPngquantFilePath(project))
         if (!pngFile.exists()) {
             new FileOutputStream(pngFile).withStream {
-                def inputStream = this.class.getResourceAsStream("/pngquant/${getFilename()}")
+                def inputStream = PngquantUtil.class.getResourceAsStream("pngquant/${getFilename()}")
                 it.write(inputStream.getBytes())
             }
-            pngFile.setExecutable(true)
         }
+        pngFile.setExecutable(true, false)
     }
 
     /**
@@ -34,7 +34,7 @@ class PngquantUtil {
 
     /**
      * .../build/pngquant
-     * @return File ( Directory )
+     * @return File (Directory)
      */
     private static def getPngquantDirectory(Project project) {
         return new File(getPngquantDirectoryPath(project))
