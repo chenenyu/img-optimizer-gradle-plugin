@@ -5,5 +5,4 @@ out
 build
 .gradle
 repo
-maven-publish.gradle
 local.properties

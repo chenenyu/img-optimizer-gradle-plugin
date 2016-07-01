@@ -40,7 +40,7 @@ class ImgOptimizerTask extends DefaultTask {
         }
     }
 
-    List<File> checkFile() {
+    def checkFile() {
         List<File> files = new ArrayList<>();
         imgDirs.each { dir ->
             dir.eachFile(FileType.FILES) { file ->

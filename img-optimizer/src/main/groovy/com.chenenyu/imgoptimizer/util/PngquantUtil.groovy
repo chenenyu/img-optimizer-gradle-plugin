@@ -26,18 +26,18 @@ class PngquantUtil {
 
     /**
      * .../build/pngquant
-     * @return File
-     */
-    private static def getPngquantDirectory(Project project) {
-        return new File(getPngquantDirectoryPath(project))
-    }
-
-    /**
-     * .../build/pngquant
      * @return String
      */
     private static def getPngquantDirectoryPath(Project project) {
         return project.buildDir.absolutePath + File.separator + "pngquant"
+    }
+
+    /**
+     * .../build/pngquant
+     * @return File ( Directory )
+     */
+    private static def getPngquantDirectory(Project project) {
+        return new File(getPngquantDirectoryPath(project))
     }
 
     /**

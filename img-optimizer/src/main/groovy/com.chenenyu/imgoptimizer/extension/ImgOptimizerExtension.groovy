@@ -12,5 +12,5 @@ class ImgOptimizerExtension {
     /**
      * 触发优化的起始大小(kb)
      */
-    int triggerSize = 50
+    int triggerSize = 5
 }

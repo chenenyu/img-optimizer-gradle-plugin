@@ -1,0 +1,67 @@
+group = 'com.chenenyu'
+version = '0.0.1'
+
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+repositories {
+    mavenCentral()
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo'))
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+
+task groovydocJar(type: Jar, dependsOn: groovydoc) {
+//    classifier = 'groovydoc'
+    classifier = 'javadoc' // groovydoc伪装成javadoc
+    from groovydoc.destinationDir
+}
+
+
+publishing {
+    publications {
+        Jcenter(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            // artifact javadocJar
+            artifact groovydocJar
+        }
+    }
+}
+
+bintray {
+    Properties properties = new Properties()
+    properties.load(project.file('local.properties').newDataInputStream())
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    publications = ['Jcenter']
+    publish = true
+    pkg {
+        repo = "maven"
+        name = "img-optimizer"
+        websiteUrl = 'https://github.com/chenenyu/img-optimizer-gradle-plugin'
+        issueTrackerUrl = 'https://github.com/chenenyu/img-optimizer-gradle-plugin/issues'
+        vcsUrl = 'https://github.com/chenenyu/img-optimizer-gradle-plugin.git'
+        desc = "Image optimizer gradle plugin."
+        labels = ["gradle", "gradle-plugin", "Android Studio", "Optimize"]
+        licenses = ["Apache-2.0"]
+        publicDownloadNumbers = true
+    }
+}
