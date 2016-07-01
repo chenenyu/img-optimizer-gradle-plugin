@@ -1,9 +1,11 @@
 package com.chenenyu.imgoptimizer.task
 
 import com.chenenyu.imgoptimizer.optimizer.impl.PngquantOptimizer
+import com.chenenyu.imgoptimizer.util.Logger
 import groovy.io.FileType
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 import java.security.InvalidParameterException
@@ -15,9 +17,11 @@ import java.security.InvalidParameterException
 class ImgOptimizerTask extends DefaultTask {
 
     @Input
+    @Optional
     String suffix
 
     @Input
+    @Optional
     int triggerSize
 
     /**
@@ -27,11 +31,11 @@ class ImgOptimizerTask extends DefaultTask {
 
     @TaskAction
     void opimize() {
-        println("Begin task $name:")
+        Logger.getLogger(project).i("Task $name begin:")
         checkTriggerSize()
         def optimizer = new PngquantOptimizer()
         optimizer.optimize(project, suffix, checkFile())
-        println("Task $name executed succesfully.")
+        Logger.getLogger(project).i("Task $name executed successfully.")
     }
 
     def checkTriggerSize() {
@@ -50,7 +54,7 @@ class ImgOptimizerTask extends DefaultTask {
                 }
             }
         }
-        println("${files.size()} imgs need to be optimized.")
+        Logger.getLogger(project).i("${files.size()} images need to be optimized.")
         return files
     }
 }

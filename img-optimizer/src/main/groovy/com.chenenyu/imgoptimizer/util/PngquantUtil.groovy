@@ -17,7 +17,7 @@ class PngquantUtil {
         def pngFile = new File(getPngquantFilePath(project))
         if (!pngFile.exists()) {
             new FileOutputStream(pngFile).withStream {
-                def inputStream = PngquantUtil.class.getResourceAsStream("pngquant/${getFilename()}")
+                def inputStream = PngquantUtil.class.getResourceAsStream("/pngquant/${getFilename()}")
                 it.write(inputStream.getBytes())
             }
         }
