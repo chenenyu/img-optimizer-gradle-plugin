@@ -25,7 +25,7 @@ class PngquantOptimizer implements Optimizer {
             if (ext == 0) {
                 long optimizedSize = new File(file.absolutePath).length()
                 float rate = 1.0f * (originalSize - optimizedSize) / originalSize * 100
-                Logger.getLogger(project).i("Succeed! ${originalSize}B/${optimizedSize}B, ${rate}% saved! ${file.absolutePath}")
+                Logger.getLogger(project).i("Succeed! ${originalSize}B-->${optimizedSize}B, ${rate}% saved! ${file.absolutePath}")
             } else {
                 Logger.getLogger(project).i("Failed! ${file.absolutePath}")
             }
