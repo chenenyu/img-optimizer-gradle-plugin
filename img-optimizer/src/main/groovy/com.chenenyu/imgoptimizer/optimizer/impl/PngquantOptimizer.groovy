@@ -48,7 +48,7 @@ class PngquantOptimizer implements Optimizer {
                 skipped++
                 Logger.getLogger(project).w("Skipped! ${file.absolutePath}")
             } else {
-                failed++;
+                failed++
                 Logger.getLogger(project).e("Failed! ${file.absolutePath}")
                 Logger.getLogger(project).e("Exit: ${exitCode}. " + error.toString())
             }
