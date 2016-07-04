@@ -45,20 +45,18 @@ class ImgOptimizerPlugin implements Plugin<Project> {
                         }
                     }
                 }
-                println(" ")
             }
 
             if (!imgDirectories.empty) {
                 project.task(type: ImgOptimizerTask, overwrite: true,
                         Constants.TASK_NAME.concat(variant.buildType.name.capitalize())) {
+                    it.group = "optimize"
                     it.description = "Optimize ${variant.buildType.name} images"
                     it.imgDirs = imgDirectories
                     it.triggerSize = ext.triggerSize
                     it.suffix = ext.suffix
                 }
             }
-
-            println(" ")
         }
     }
 }
