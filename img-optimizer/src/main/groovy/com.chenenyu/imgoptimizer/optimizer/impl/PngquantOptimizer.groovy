@@ -17,7 +17,7 @@ class PngquantOptimizer implements Optimizer {
         if (suffix == null || "".equals(suffix.trim())) {
             suffix = ".png"
         } else if (!suffix.endsWith(".png")) {
-            suffix.concat(".png")
+            suffix += ".png"
         }
 
         int succeed = 0
