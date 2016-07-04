@@ -20,7 +20,10 @@ class PngquantOptimizer implements Optimizer {
             suffix.concat(".png")
         }
 
-        int succeed, skipped, failed // Statistics
+        int succeed = 0
+        int skipped = 0
+        int failed = 0
+        long totalSaved = 0L
         def pngquant = PngquantUtil.getPngquantFilePath(project)
         files.each { file ->
             long originalSize = file.length()
@@ -35,23 +38,25 @@ class PngquantOptimizer implements Optimizer {
             }
             int exitCode = process.waitFor()
 
-            long optimizedSize = new File(file.absolutePath).length()
-            float rate = 1.0f * (originalSize - optimizedSize) / originalSize * 100
             if (exitCode == 0) {
-                succeed++;
+                succeed++
+                long optimizedSize = new File(file.absolutePath).length()
+                float rate = 1.0f * (originalSize - optimizedSize) / originalSize * 100
+                totalSaved += (originalSize - optimizedSize)
                 Logger.getLogger(project).i("Succeed! ${originalSize}B-->${optimizedSize}B, ${rate}% saved! ${file.absolutePath}")
             } else if (exitCode == 98) {
-                skipped++;
+                skipped++
                 Logger.getLogger(project).w("Skipped! ${file.absolutePath}")
             } else {
                 failed++;
-                Logger.getLogger(project).e("Failed! ${originalSize}B-->${optimizedSize}B, ${rate}% saved! ${file.absolutePath}")
-                Logger.getLogger(project).e("Exit: $exitCode. " + error.toString())
+                Logger.getLogger(project).e("Failed! ${file.absolutePath}")
+                Logger.getLogger(project).e("Exit: ${exitCode}. " + error.toString())
             }
         }
 
         // Statistics
-        Logger.getLogger(project).i("Total: ${files.size()}, Succeed: ${succeed}, Skipped: ${skipped}, Failed: ${failed}")
+        Logger.getLogger(project).i("Total: ${files.size()}, Succeed: ${succeed}, " +
+                "Skipped: ${skipped}, Failed: ${failed}, Saved: ${totalSaved / 1024}KB")
     }
 
 }
