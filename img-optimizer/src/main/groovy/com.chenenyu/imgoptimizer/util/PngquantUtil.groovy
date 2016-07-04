@@ -9,6 +9,8 @@ import org.gradle.api.Project;
  */
 class PngquantUtil {
 
+    private static final def name = "pngquant";
+
     static def copyPngquant2BuildFolder(Project project) {
         def pngquantDir = getPngquantDirectory(project)
         if (!pngquantDir.exists()) {
@@ -17,7 +19,7 @@ class PngquantUtil {
         def pngFile = new File(getPngquantFilePath(project))
         if (!pngFile.exists()) {
             new FileOutputStream(pngFile).withStream {
-                def inputStream = PngquantUtil.class.getResourceAsStream("/pngquant/${getFilename()}")
+                def inputStream = PngquantUtil.class.getResourceAsStream("/$name/${getFilename()}")
                 it.write(inputStream.getBytes())
             }
         }
@@ -29,7 +31,7 @@ class PngquantUtil {
      * @return String
      */
     private static def getPngquantDirectoryPath(Project project) {
-        return project.buildDir.absolutePath + File.separator + "pngquant"
+        return project.buildDir.absolutePath + File.separator + "$name"
     }
 
     /**
@@ -49,7 +51,7 @@ class PngquantUtil {
     }
 
     private static def getFilename() {
-        return Os.isFamily(Os.FAMILY_WINDOWS) ? "pngquant.exe" : "pngquant"
+        return Os.isFamily(Os.FAMILY_WINDOWS) ? "${name}.exe" : "$name"
     }
 
 }

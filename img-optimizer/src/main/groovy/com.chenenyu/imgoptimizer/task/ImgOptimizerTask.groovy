@@ -1,6 +1,6 @@
 package com.chenenyu.imgoptimizer.task
 
-import com.chenenyu.imgoptimizer.optimizer.impl.PngquantOptimizer
+import com.chenenyu.imgoptimizer.optimizer.OptimizerFactory
 import com.chenenyu.imgoptimizer.util.Logger
 import groovy.io.FileType
 import org.gradle.api.DefaultTask
@@ -24,6 +24,10 @@ class ImgOptimizerTask extends DefaultTask {
     @Optional
     int triggerSize
 
+    @Input
+    @Optional
+    String type
+
     /**
      * 图片文件夹(drawable-xxx, mipmap-xxx)
      */
@@ -33,7 +37,7 @@ class ImgOptimizerTask extends DefaultTask {
     void opimize() {
         Logger.getLogger(project).i("Task $name begin:")
         checkTriggerSize()
-        def optimizer = new PngquantOptimizer()
+        def optimizer = OptimizerFactory.getOptimizer(type)
         optimizer.optimize(project, suffix, checkFile())
         Logger.getLogger(project).i("Task $name executed successfully.")
     }

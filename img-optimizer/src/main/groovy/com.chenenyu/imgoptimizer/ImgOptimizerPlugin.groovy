@@ -55,6 +55,7 @@ class ImgOptimizerPlugin implements Plugin<Project> {
                     it.imgDirs = imgDirectories
                     it.triggerSize = ext.triggerSize
                     it.suffix = ext.suffix
+                    it.type = ext.type
                 }
             }
         }
