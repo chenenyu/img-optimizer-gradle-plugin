@@ -10,16 +10,21 @@ import org.gradle.api.Project;
  * @Created: 16/6/27 17:28.
  */
 class PngquantOptimizer implements Optimizer {
+
     @Override
     void optimize(Project project, String suffix, List<File> files) {
         PngquantUtil.copyPngquant2BuildFolder(project)
         if (suffix == null || "".equals(suffix.trim())) {
             suffix = ".png"
+        } else if (!suffix.endsWith(".png")) {
+            suffix.concat(".png")
         }
+
+        int succeed, skipped, failed // Statistics
         def pngquant = PngquantUtil.getPngquantFilePath(project)
-        println(pngquant)
         files.each { file ->
             long originalSize = file.length()
+
             Process process = new ProcessBuilder(pngquant, "-v", "--force", "--skip-if-larger",
                     "--speed=1", "--ext=${suffix}", file.absolutePath).redirectErrorStream(true).start();
             BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()))
@@ -29,14 +34,24 @@ class PngquantOptimizer implements Optimizer {
                 error.append(line)
             }
             int exitCode = process.waitFor()
+
+            long optimizedSize = new File(file.absolutePath).length()
+            float rate = 1.0f * (originalSize - optimizedSize) / originalSize * 100
             if (exitCode == 0) {
-                long optimizedSize = new File(file.absolutePath).length()
-                float rate = 1.0f * (originalSize - optimizedSize) / originalSize * 100
+                succeed++;
                 Logger.getLogger(project).i("Succeed! ${originalSize}B-->${optimizedSize}B, ${rate}% saved! ${file.absolutePath}")
+            } else if (exitCode == 98) {
+                skipped++;
+                Logger.getLogger(project).w("Skipped! ${file.absolutePath}")
             } else {
+                failed++;
                 Logger.getLogger(project).e("Failed! ${originalSize}B-->${optimizedSize}B, ${rate}% saved! ${file.absolutePath}")
-                Logger.getLogger(project).e("exit:$exitCode. " + error.toString())
+                Logger.getLogger(project).e("Exit: $exitCode. " + error.toString())
             }
         }
+
+        // Statistics
+        Logger.getLogger(project).i("Total: ${files.size()}, Succeed: ${succeed}, Skipped: ${skipped}, Failed: ${failed}")
     }
+
 }

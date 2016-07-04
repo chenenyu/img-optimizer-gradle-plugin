@@ -8,6 +8,11 @@ import org.gradle.api.Project
  */
 interface Optimizer {
 
+    /**
+     * @param project Project
+     * @param suffix String
+     * @param files List<File>
+     */
     void optimize(Project project, String suffix, List<File> files)
 
 }
