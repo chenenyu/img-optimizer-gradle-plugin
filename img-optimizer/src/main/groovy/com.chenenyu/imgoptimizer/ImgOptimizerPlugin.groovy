@@ -48,8 +48,8 @@ class ImgOptimizerPlugin implements Plugin<Project> {
             }
 
             if (!imgDirectories.empty) {
-                project.task(type: ImgOptimizerTask, overwrite: true,
-                        Constants.TASK_NAME.concat(variant.buildType.name.capitalize())) {
+                project.task(type: ImgOptimizerTask, overwrite: true, Constants.TASK_NAME.
+                        concat(project.name.capitalize()).concat(variant.buildType.name.capitalize())) {
                     it.group = "optimize"
                     it.description = "Optimize ${variant.buildType.name} images"
                     it.imgDirs = imgDirectories
