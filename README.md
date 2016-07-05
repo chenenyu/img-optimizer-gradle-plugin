@@ -2,7 +2,7 @@
 
 # img-optimizer-gradle-plugin
 
->一款用于优化png图片的gradle插件，减小APK体积，支持微损压缩和无损压缩。
+>一款用于优化png图片的gradle插件，有效减少APK体积，支持微损压缩和无损压缩。
 
 ### 如何使用
 
