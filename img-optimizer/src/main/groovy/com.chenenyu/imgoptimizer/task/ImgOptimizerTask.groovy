@@ -33,13 +33,16 @@ class ImgOptimizerTask extends DefaultTask {
      */
     List<File> imgDirs
 
+    Logger log
+
     @TaskAction
     void opimize() {
-        Logger.getLogger(project).i("Task $name begin:")
+        log = new Logger(project)
+        log.i("Task $name begin:")
         checkTriggerSize()
         def optimizer = OptimizerFactory.getOptimizer(type)
-        optimizer.optimize(project, suffix, checkFile())
-        Logger.getLogger(project).i("Task $name executed successfully.")
+        optimizer.optimize(project, log, suffix, checkFile())
+        log.i("Task $name executed successfully.")
     }
 
     def checkTriggerSize() {
@@ -58,7 +61,7 @@ class ImgOptimizerTask extends DefaultTask {
                 }
             }
         }
-        Logger.getLogger(project).i("${files.size()} images need to be optimized.")
+        log.i("${files.size()} images need to be optimized.")
         return files
     }
 }

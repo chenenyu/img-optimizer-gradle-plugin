@@ -9,7 +9,6 @@ import com.chenenyu.imgoptimizer.task.ImgOptimizerTask
 import org.gradle.api.DomainObjectCollection
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-
 /**
  * @Author: chenenyu
  * @Created at: 2016/6/20.

@@ -12,11 +12,10 @@ import org.gradle.api.Project
 class ZopflipngOptimizer implements Optimizer {
 
     @Override
-    void optimize(Project project, String suffix, List<File> files) {
+    void optimize(Project project, Logger log, String suffix, List<File> files) {
         ZopflipngUtil.copyZopflipng2BuildFolder(project)
         if (suffix == null || "".equals(suffix.trim())) {
             suffix = ".png"
-            Logger.getLogger(project).i("if")
         } else if (!suffix.endsWith(".png")) {
             suffix += ".png"
         }
@@ -45,16 +44,15 @@ class ZopflipngOptimizer implements Optimizer {
                 long optimizedSize = new File(file.absolutePath).length()
                 float rate = 1.0f * (originalSize - optimizedSize) / originalSize * 100
                 totalSaved += (originalSize - optimizedSize)
-                Logger.getLogger(project).i("Succeed! ${originalSize}B-->${optimizedSize}B, ${rate}% saved! ${file.absolutePath}")
+                log.i("Succeed! ${originalSize}B-->${optimizedSize}B, ${rate}% saved! ${file.absolutePath}")
             } else {
                 failed++
-                Logger.getLogger(project).e("Failed! ${file.absolutePath}")
-                Logger.getLogger(project).e("Exit: ${exitCode}. " + error.toString())
+                log.e("Failed! ${file.absolutePath}")
+                log.e("Exit: ${exitCode}. " + error.toString())
             }
         }
 
-        // Statistics
-        Logger.getLogger(project).i("Total: ${files.size()}, Succeed: ${succeed}, " +
+        log.i("Total: ${files.size()}, Succeed: ${succeed}, " +
                 "Skipped: ${skipped}, Failed: ${failed}, Saved: ${totalSaved / 1024}KB")
     }
 

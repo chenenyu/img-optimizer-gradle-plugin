@@ -2,7 +2,7 @@ package com.chenenyu.imgoptimizer.util
 
 import org.gradle.api.Project
 
-import java.text.SimpleDateFormat;
+import java.text.SimpleDateFormat
 
 /**
  * @Author: chenenyu
@@ -15,29 +15,12 @@ class Logger {
     private static final String WARN = "warn:  ";
     private static final String ERROR = "error: ";
 
-    private static Logger instance;
-    private static File file;
+    private File file;
     private Writer writer;
 
-    private Logger() {}
-
-    static def getLogger(Project project) {
-        checkFile(project)
-        if (instance == null) {
-            synchronized (Logger.class) {
-                if (instance == null) {
-                    instance = new Logger()
-                }
-            }
-        }
-        return instance
-    }
-
-    private static def checkFile(Project project) {
-        if (project != null && file == null) {
-            file = new File(project.projectDir.absolutePath + File.separator + LOG_FILE_NAME)
-            new PrintWriter(file).close()
-        }
+    Logger(Project project) {
+        file = new File(project.projectDir.absolutePath + File.separator + LOG_FILE_NAME)
+        new PrintWriter(file).close()
     }
 
     private def write(String logLevel, String msg) {
