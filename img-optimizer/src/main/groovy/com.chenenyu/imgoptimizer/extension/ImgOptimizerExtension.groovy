@@ -15,7 +15,7 @@ class ImgOptimizerExtension {
     /**
      * 触发优化的起始大小(kb)
      */
-    int triggerSize = 5
+    int triggerSize = 0
 
     /**
      * 压缩模式(默认有损压缩)
