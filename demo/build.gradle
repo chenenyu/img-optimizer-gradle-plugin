@@ -16,7 +16,7 @@ apply plugin: 'com.android.application'
 //optimizerOptions {
 //    triggerSize 5
 //    type "lossy"
-//    suffix "opt"
+//    suffix "_opt"
 //}
 
 android {
@@ -28,7 +28,6 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -40,8 +39,4 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support:support-annotations:24.0.0'
 }
