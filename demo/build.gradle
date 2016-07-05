@@ -2,19 +2,21 @@ apply plugin: 'com.android.application'
 
 //buildscript {
 //    repositories {
-//        mavenCentral()
+//        jcenter()
 //        maven {
 //            url uri('../repo')
 //        }
 //    }
 //    dependencies {
-//        classpath 'com.chenenyu:img-optimizer:0.0.1'
+//        classpath 'com.chenenyu:img-optimizer:1.0.0'
 //    }
 //}
 //apply plugin: 'img-optimizer'
 //
 //optimizerOptions {
 //    triggerSize 5
+//    type "lossy"
+//    suffix "opt"
 //}
 
 android {
