@@ -1,13 +1,10 @@
 group = 'com.chenenyu'
-version = '0.0.1'
+version = '1.0.0'
 
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
-repositories {
-    mavenCentral()
-}
 
 uploadArchives {
     repositories {
@@ -22,14 +19,8 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
 }
 
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-
 task groovydocJar(type: Jar, dependsOn: groovydoc) {
-//    classifier = 'groovydoc'
-    classifier = 'javadoc' // groovydoc伪装成javadoc
+    classifier = 'javadoc'
     from groovydoc.destinationDir
 }
 
@@ -39,7 +30,6 @@ publishing {
         Jcenter(MavenPublication) {
             from components.java
             artifact sourcesJar
-            // artifact javadocJar
             artifact groovydocJar
         }
     }
