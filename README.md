@@ -50,7 +50,7 @@ optimizerOptions {
 |526K|195K(减少63%)|473K(减少10%)|
 |![原图](arts/lenna.png)|![微损压缩](arts/lenna_lossy.png)|![无损压缩](arts/lenna_lossless.png)|
 
-#### 说明
+### 说明
 
 如果项目有多个module，请在相应的build.gradle中配置plugin，每个module相互独立。执行task后会在module根目录下生成log文件，详细记录了每张图片的优化情况，方便查看。
 
