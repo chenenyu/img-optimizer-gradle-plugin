@@ -1,4 +1,4 @@
-[![Download](https://api.bintray.com/packages/chenenyu/maven/img-optimizer/images/download.svg)](https://bintray.com/chenenyu/maven/img-optimizer/_latestVersion) [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![GitHub stars](https://img.shields.io/github/stars/chenenyu/img-optimizer-gradle-plugin.svg?style=social)](https://github.com/chenenyu/img-optimizer-gradle-plugin/stargazers)
+[![Download](https://api.bintray.com/packages/chenenyu/maven/img-optimizer/images/download.svg)](https://bintray.com/chenenyu/maven/img-optimizer/_latestVersion) [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-img--optimizer--gradle--plugin-green.svg?style=true)](https://android-arsenal.com/details/1/3863) [![GitHub stars](https://img.shields.io/github/stars/chenenyu/img-optimizer-gradle-plugin.svg)](https://github.com/chenenyu/img-optimizer-gradle-plugin/stargazers)
 
 # img-optimizer-gradle-plugin
 
