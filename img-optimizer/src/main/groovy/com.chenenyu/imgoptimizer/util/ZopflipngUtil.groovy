@@ -50,8 +50,14 @@ class ZopflipngUtil {
         return getZopflipngDirectoryPath(project) + File.separator + getFilename()
     }
 
-    private static def getFilename() {
-        return Os.isFamily(Os.FAMILY_WINDOWS) ? "${name}.exe" : "$name"
+    static def getFilename() {
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            return "${name}.exe"
+        } else if (Os.isFamily(Os.FAMILY_MAC)) {
+            return "${name}-mac"
+        } else {
+            return "$name"
+        }
     }
 
 }
