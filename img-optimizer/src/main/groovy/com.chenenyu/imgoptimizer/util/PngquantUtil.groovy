@@ -43,15 +43,22 @@ class PngquantUtil {
     }
 
     /**
-     * .../build/pngquant/pngquant(.exe)
+     * .../build/pngquant/{pngquant/pngquant-mac/pngquant.exe}.
+     *
      * @return String
      */
     static def getPngquantFilePath(Project project) {
         return getPngquantDirectoryPath(project) + File.separator + getFilename()
     }
 
-    private static def getFilename() {
-        return Os.isFamily(Os.FAMILY_WINDOWS) ? "${name}.exe" : "$name"
+    static def getFilename() {
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            return "${name}.exe"
+        } else if (Os.isFamily(Os.FAMILY_MAC)) {
+            return "${name}-mac"
+        } else {
+            return "$name"
+        }
     }
 
 }
