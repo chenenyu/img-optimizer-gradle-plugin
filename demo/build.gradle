@@ -8,11 +8,11 @@ apply plugin: 'com.android.application'
 //        }
 //    }
 //    dependencies {
-//        classpath 'com.chenenyu:img-optimizer:1.0.0'
+//        classpath 'com.chenenyu:img-optimizer:1.1.0'
 //    }
 //}
 //apply plugin: 'img-optimizer'
-//
+
 //optimizerOptions {
 //    triggerSize 5
 //    type "lossy"
