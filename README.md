@@ -4,6 +4,10 @@
 
 >一款用于优化png图片的gradle插件，有效减少APK体积，支持极限压缩和无损压缩。
 
+### 支持的OS
+
+在`macOS`、`windows10`、`Ubuntu16.04LTS(amd64)`上测试通过，如果有更多需求，请提issue。
+
 ### 如何使用
 
 在Project的build.gradle文件中:  
