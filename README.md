@@ -18,7 +18,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha4'
+        ...
 		classpath 'com.chenenyu:img-optimizer:版本号'
     }
 }
@@ -57,6 +57,10 @@ optimizerOptions {
 ### 说明
 
 如果项目有多个module，请在相应的build.gradle中配置plugin，每个module相互独立。执行task后会在module根目录下生成log文件，详细记录了每张图片的优化情况，方便查看。
+
+### Other libraries
+
+[SuperAdapter](https://github.com/byteam/SuperAdapter) ：一个Adapter同时适用RecyclerView、ListView、GridView等。
 
 ### License
 
