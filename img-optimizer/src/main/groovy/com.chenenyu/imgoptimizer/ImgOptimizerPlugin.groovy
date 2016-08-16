@@ -29,16 +29,16 @@ class ImgOptimizerPlugin implements Plugin<Project> {
     static void applyAndroid(Project project, DomainObjectCollection<BaseVariant> variants) {
         def ext = project.extensions.create(Constants.EXT_NAME, ImgOptimizerExtension)
         variants.all { variant ->
-            println("-------- variant: $variant.name --------")
+            // println("-------- variant: $variant.name --------")
             List<File> imgDirectories = []
             variant.sourceSets.each { sourceSet ->
                 println("sourceSets.${sourceSet.name} -->")
                 sourceSet.resDirectories.each { res ->
                     if (res.exists()) {
-                        println("${res.name}.directories:")
+                        // println("${res.name}.directories:")
                         res.eachDir {
                             if (it.directory && (it.name.startsWith("drawable") || it.name.startsWith("mipmap"))) {
-                                println("$it.absolutePath")
+                                // println("$it.absolutePath")
                                 imgDirectories << it
                             }
                         }
