@@ -6,7 +6,7 @@ targetCompatibility = '1.6'
 dependencies {
     compile gradleApi()
     compile localGroovy()
-    compile 'com.android.tools.build:gradle:2.2.0-alpha5'
+    compile 'com.android.tools.build:gradle:2.2.0-beta1'
 }
 
 apply from: 'maven-publish.gradle'
