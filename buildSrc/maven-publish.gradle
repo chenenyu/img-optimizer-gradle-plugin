@@ -5,6 +5,9 @@ def GROUP = 'com.chenenyu'
 def ARTIFACT_ID = 'img-optimizer'
 def VERSION = '1.1.1'
 
+group = GROUP
+version = VERSION
+
 task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
     classifier = 'sources'
@@ -35,7 +38,6 @@ bintray {
     key = properties.getProperty("bintray.apikey")
 
     publications = ['bintray']
-    publish = true
     pkg {
         repo = "maven"
         name = ARTIFACT_ID
@@ -46,5 +48,6 @@ bintray {
         labels = ["gradle", "gradle-plugin", "Android Studio", "Optimize"]
         licenses = ["Apache-2.0"]
         publicDownloadNumbers = true
+        publish = true
     }
 }
