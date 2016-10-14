@@ -1,51 +1,44 @@
-group = 'com.chenenyu'
-version = '1.1.0'
-
-apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri('../repo'))
-        }
-    }
-}
+def GROUP = 'com.chenenyu'
+def ARTIFACT_ID = 'img-optimizer'
+def VERSION = '1.1.1'
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
     classifier = 'sources'
 }
 
-task groovydocJar(type: Jar, dependsOn: groovydoc) {
-    classifier = 'javadoc'
-    from groovydoc.destinationDir
+artifacts {
+    archives sourcesJar
 }
-
 
 publishing {
     publications {
-        Jcenter(MavenPublication) {
+        bintray(MavenPublication) {
             from components.java
+
+            groupId GROUP
+            artifactId ARTIFACT_ID
+            version VERSION
+
             artifact sourcesJar
-            artifact groovydocJar
         }
     }
 }
 
 bintray {
     Properties properties = new Properties()
-    properties.load(rootProject.file('local.properties').newDataInputStream())
+    properties.load(project.file('../local.properties').newDataInputStream())
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
 
-    publications = ['Jcenter']
+    publications = ['bintray']
     publish = true
     pkg {
         repo = "maven"
-        name = "img-optimizer"
+        name = ARTIFACT_ID
         websiteUrl = 'https://github.com/chenenyu/img-optimizer-gradle-plugin'
         issueTrackerUrl = 'https://github.com/chenenyu/img-optimizer-gradle-plugin/issues'
         vcsUrl = 'https://github.com/chenenyu/img-optimizer-gradle-plugin.git'

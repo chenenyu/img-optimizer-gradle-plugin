@@ -32,7 +32,7 @@ class ImgOptimizerPlugin implements Plugin<Project> {
             // println("-------- variant: $variant.name --------")
             List<File> imgDirectories = []
             variant.sourceSets.each { sourceSet ->
-                println("sourceSets.${sourceSet.name} -->")
+                // println("sourceSets.${sourceSet.name} -->")
                 sourceSet.resDirectories.each { res ->
                     if (res.exists()) {
                         // println("${res.name}.directories:")

@@ -1,27 +1,15 @@
 apply plugin: 'com.android.application'
 
-//buildscript {
-//    repositories {
-//        jcenter()
-//        maven {
-//            url uri('../repo')
-//        }
-//    }
-//    dependencies {
-//        classpath 'com.chenenyu:img-optimizer:1.1.0'
-//    }
-//}
-//apply plugin: 'img-optimizer'
+apply plugin: 'img-optimizer'
 
-//optimizerOptions {
-//    triggerSize 5
-//    type "lossy"
-//    suffix "_opt"
-//}
+optimizerOptions {
+    triggerSize 5
+    type "lossy"
+}
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "24.0.0"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.chenenyu.plugintest"
         minSdkVersion 14

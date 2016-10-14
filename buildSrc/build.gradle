@@ -1,0 +1,30 @@
+apply plugin: 'groovy'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7'
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+sourceCompatibility = '1.6'
+targetCompatibility = '1.6'
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+    provided 'com.android.tools.build:gradle:2.2.1'
+}
+
+apply from: 'maven-publish.gradle'
