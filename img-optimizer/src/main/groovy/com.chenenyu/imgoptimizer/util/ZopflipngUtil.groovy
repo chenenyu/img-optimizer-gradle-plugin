@@ -1,7 +1,7 @@
 package com.chenenyu.imgoptimizer.util
 
 import org.apache.tools.ant.taskdefs.condition.Os
-import org.gradle.api.Project;
+import org.gradle.api.Project
 
 /**
  * @Author: chenenyu
@@ -9,7 +9,7 @@ import org.gradle.api.Project;
  */
 class ZopflipngUtil {
 
-    private static final def name = "zopflipng";
+    private static final def name = "zopflipng"
 
     static def copyZopflipng2BuildFolder(Project project) {
         def pngquantDir = getZopflipngDirectory(project)

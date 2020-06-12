@@ -1,1 +1,1 @@
-include ':demo', ':buildSrc'
+include ':demo', ':img-optimizer'

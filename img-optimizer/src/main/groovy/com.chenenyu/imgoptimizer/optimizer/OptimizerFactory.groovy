@@ -1,7 +1,7 @@
 package com.chenenyu.imgoptimizer.optimizer
 
 import com.chenenyu.imgoptimizer.optimizer.impl.PngquantOptimizer
-import com.chenenyu.imgoptimizer.optimizer.impl.ZopflipngOptimizer;
+import com.chenenyu.imgoptimizer.optimizer.impl.ZopflipngOptimizer
 
 /**
  * @Author: chenenyu

@@ -36,7 +36,7 @@ class ImgOptimizerTask extends DefaultTask {
     Logger log
 
     @TaskAction
-    void opimize() {
+    void optimize() {
         log = new Logger(project)
         log.i("Task $name begin:")
         checkTriggerSize()
@@ -52,7 +52,7 @@ class ImgOptimizerTask extends DefaultTask {
     }
 
     def checkFile() {
-        List<File> files = new ArrayList<>();
+        List<File> files = new ArrayList<>()
         imgDirs.each { dir ->
             dir.eachFile(FileType.FILES) { file ->
                 if (file.size() >= (1024 * triggerSize) && !file.name.endsWith('.9.png') &&

@@ -1,0 +1,27 @@
+apply plugin: 'groovy'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
+    }
+}
+
+repositories {
+    google()
+    jcenter()
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    compileOnly 'com.android.tools.build:gradle:4.0.0'
+}
+
+apply from: 'maven-publish.gradle'

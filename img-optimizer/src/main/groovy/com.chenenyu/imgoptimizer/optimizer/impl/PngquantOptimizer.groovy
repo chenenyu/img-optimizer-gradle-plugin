@@ -2,19 +2,19 @@ package com.chenenyu.imgoptimizer.optimizer.impl
 
 import com.chenenyu.imgoptimizer.optimizer.Optimizer
 import com.chenenyu.imgoptimizer.util.Logger
-import com.chenenyu.imgoptimizer.util.ZopflipngUtil
+import com.chenenyu.imgoptimizer.util.PngquantUtil
 import org.gradle.api.Project
 
 /**
  * @Author: chenenyu
- * @Created: 16/7/4 14:43.
+ * @Created: 16/6/27 17:28.
  */
-class ZopflipngOptimizer implements Optimizer {
+class PngquantOptimizer implements Optimizer {
 
     @Override
     void optimize(Project project, Logger log, String suffix, List<File> files) {
-        ZopflipngUtil.copyZopflipng2BuildFolder(project)
-        if (suffix == null || "".equals(suffix.trim())) {
+        PngquantUtil.copyPngquant2BuildFolder(project)
+        if (suffix == null || suffix.trim().isEmpty()) {
             suffix = ".png"
         } else if (!suffix.endsWith(".png")) {
             suffix += ".png"
@@ -24,13 +24,12 @@ class ZopflipngOptimizer implements Optimizer {
         int skipped = 0
         int failed = 0
         long totalSaved = 0L
-        def zopflipng = ZopflipngUtil.getZopflipngFilePath(project)
+        def pngquant = PngquantUtil.getPngquantFilePath(project)
         files.each { file ->
             long originalSize = file.length()
 
-            String output = file.absolutePath.substring(0, file.absolutePath.lastIndexOf(".")).concat(suffix)
-            Process process = new ProcessBuilder(zopflipng, "-y", "-m", file.absolutePath, output).
-                    redirectErrorStream(true).start();
+            Process process = new ProcessBuilder(pngquant, "-v", "--force", "--skip-if-larger",
+                    "--speed=1", "--ext=${suffix}", file.absolutePath).redirectErrorStream(true).start();
             BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()))
             StringBuilder error = new StringBuilder()
             String line
@@ -41,10 +40,14 @@ class ZopflipngOptimizer implements Optimizer {
 
             if (exitCode == 0) {
                 succeed++
+                String output = file.absolutePath.substring(0, file.absolutePath.lastIndexOf(".")).concat(suffix)
                 long optimizedSize = new File(output).length()
                 float rate = 1.0f * (originalSize - optimizedSize) / originalSize * 100
                 totalSaved += (originalSize - optimizedSize)
                 log.i("Succeed! ${originalSize}B-->${optimizedSize}B, ${rate}% saved! ${file.absolutePath}")
+            } else if (exitCode == 98) {
+                skipped++
+                log.w("Skipped! ${file.absolutePath}")
             } else {
                 failed++
                 log.e("Failed! ${file.absolutePath}")

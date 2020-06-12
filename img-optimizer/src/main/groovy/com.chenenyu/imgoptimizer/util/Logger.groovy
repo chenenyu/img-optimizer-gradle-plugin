@@ -10,13 +10,13 @@ import java.text.SimpleDateFormat
  */
 class Logger {
 
-    private static final String LOG_FILE_NAME = "img_optimizer.log";
-    private static final String INFO = "info:  ";
-    private static final String WARN = "warn:  ";
-    private static final String ERROR = "error: ";
+    private static final String LOG_FILE_NAME = "img_optimizer.log"
+    private static final String INFO = "info:  "
+    private static final String WARN = "warn:  "
+    private static final String ERROR = "error: "
 
-    private File file;
-    private Writer writer;
+    private File file
+    private Writer writer
 
     Logger(Project project) {
         file = new File(project.projectDir.absolutePath + File.separator + LOG_FILE_NAME)
@@ -32,12 +32,12 @@ class Logger {
             writer.write("----------------------------------------\r\n")
         } catch (Exception e) {
         } finally {
-            writer.close();
+            writer.close()
         }
     }
 
     private def getDateTime() {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         return df.format(new Date())
     }
 

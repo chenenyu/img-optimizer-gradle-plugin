@@ -3,14 +3,14 @@ apply plugin: 'com.jfrog.bintray'
 
 def GROUP = 'com.chenenyu'
 def ARTIFACT_ID = 'img-optimizer'
-def VERSION = '1.1.1'
+def VERSION = '1.2.0'
 
 group = GROUP
 version = VERSION
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
-    classifier = 'sources'
+    archiveClassifier.set('sources')
 }
 
 artifacts {
@@ -33,7 +33,7 @@ publishing {
 
 bintray {
     Properties properties = new Properties()
-    properties.load(project.file('../local.properties').newDataInputStream())
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
 
@@ -41,13 +41,15 @@ bintray {
     pkg {
         repo = "maven"
         name = ARTIFACT_ID
-        websiteUrl = 'https://github.com/chenenyu/img-optimizer-gradle-plugin'
-        issueTrackerUrl = 'https://github.com/chenenyu/img-optimizer-gradle-plugin/issues'
         vcsUrl = 'https://github.com/chenenyu/img-optimizer-gradle-plugin.git'
         desc = "Image optimizer gradle plugin."
         labels = ["gradle", "gradle-plugin", "Android Studio", "Optimize"]
         licenses = ["Apache-2.0"]
         publicDownloadNumbers = true
         publish = true
+//        version {
+//            name = VERSION
+//            vcsTag = VERSION
+//        }
     }
 }

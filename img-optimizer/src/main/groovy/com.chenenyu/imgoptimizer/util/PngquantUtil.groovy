@@ -1,7 +1,7 @@
 package com.chenenyu.imgoptimizer.util
 
 import org.apache.tools.ant.taskdefs.condition.Os
-import org.gradle.api.Project;
+import org.gradle.api.Project
 
 /**
  * @Author: chenenyu
@@ -9,7 +9,7 @@ import org.gradle.api.Project;
  */
 class PngquantUtil {
 
-    private static final def name = "pngquant";
+    private static final def name = "pngquant"
 
     static def copyPngquant2BuildFolder(Project project) {
         def pngquantDir = getPngquantDirectory(project)

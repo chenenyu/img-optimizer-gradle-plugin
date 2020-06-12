@@ -9,6 +9,7 @@ import com.chenenyu.imgoptimizer.task.ImgOptimizerTask
 import org.gradle.api.DomainObjectCollection
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+
 /**
  * @Author: chenenyu
  * @Created at: 2016/6/20.
@@ -28,7 +29,7 @@ class ImgOptimizerPlugin implements Plugin<Project> {
 
     static void applyAndroid(Project project, DomainObjectCollection<BaseVariant> variants) {
         def ext = project.extensions.create(Constants.EXT_NAME, ImgOptimizerExtension)
-        variants.all { variant ->
+        variants.all { BaseVariant variant ->
             // println("-------- variant: $variant.name --------")
             List<File> imgDirectories = []
             variant.sourceSets.each { sourceSet ->
@@ -47,10 +48,9 @@ class ImgOptimizerPlugin implements Plugin<Project> {
             }
 
             if (!imgDirectories.empty) {
-                project.task(type: ImgOptimizerTask, overwrite: true, Constants.TASK_NAME.
-                        concat(project.name.capitalize()).concat(variant.buildType.name.capitalize())) {
+                project.tasks.create("${Constants.TASK_NAME}${variant.name.capitalize()}", ImgOptimizerTask) {
                     it.group = "optimize"
-                    it.description = "Optimize ${variant.buildType.name} images"
+                    it.description = "Optimize ${variant.name} images"
                     it.imgDirs = imgDirectories
                     it.triggerSize = ext.triggerSize
                     it.suffix = ext.suffix
