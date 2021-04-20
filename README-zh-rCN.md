@@ -1,4 +1,4 @@
-[![Download](https://api.bintray.com/packages/chenenyu/maven/img-optimizer/images/download.svg)](https://bintray.com/chenenyu/maven/img-optimizer/_latestVersion) [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-img--optimizer--gradle--plugin-green.svg?style=true)](https://android-arsenal.com/details/1/3863) [![GitHub stars](https://img.shields.io/github/stars/chenenyu/img-optimizer-gradle-plugin.svg)](https://github.com/chenenyu/img-optimizer-gradle-plugin/stargazers)
+![maven](https://img.shields.io/maven-central/v/com.chenenyu/img-optimizer) [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-img--optimizer--gradle--plugin-green.svg?style=true)](https://android-arsenal.com/details/1/3863) [![GitHub stars](https://img.shields.io/github/stars/chenenyu/img-optimizer-gradle-plugin.svg)](https://github.com/chenenyu/img-optimizer-gradle-plugin/stargazers)
 
 # img-optimizer-gradle-plugin
 
@@ -15,11 +15,12 @@
 ```
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
+        // jcenter()
     }
     dependencies {
         ...
-		classpath 'com.chenenyu:img-optimizer:版本号'
+        classpath 'com.chenenyu:img-optimizer:版本号'
     }
 }
 ```  
@@ -57,10 +58,6 @@ optimizerOptions {
 ### 说明
 
 如果项目有多个module，请在相应的build.gradle中配置plugin，每个module相互独立。执行task后会在module根目录下生成log文件，详细记录了每张图片的优化情况，方便查看。
-
-### Other libraries
-
-[SuperAdapter](https://github.com/byteam/SuperAdapter) ：一个Adapter同时适用RecyclerView、ListView、GridView等。
 
 ### License
 

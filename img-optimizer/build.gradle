@@ -1,18 +1,9 @@
 apply plugin: 'groovy'
 
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
-    }
-}
-
 repositories {
     google()
-    jcenter()
+    mavenCentral()
+//    jcenter()
 }
 
 sourceCompatibility = '1.8'

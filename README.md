@@ -1,10 +1,10 @@
-[![Download](https://api.bintray.com/packages/chenenyu/maven/img-optimizer/images/download.svg)](https://bintray.com/chenenyu/maven/img-optimizer/_latestVersion) [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-img--optimizer--gradle--plugin-green.svg?style=true)](https://android-arsenal.com/details/1/3863) [![GitHub stars](https://img.shields.io/github/stars/chenenyu/img-optimizer-gradle-plugin.svg)](https://github.com/chenenyu/img-optimizer-gradle-plugin/stargazers)
+![maven](https://img.shields.io/maven-central/v/com.chenenyu/img-optimizer) [![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-img--optimizer--gradle--plugin-green.svg?style=true)](https://android-arsenal.com/details/1/3863) [![GitHub stars](https://img.shields.io/github/stars/chenenyu/img-optimizer-gradle-plugin.svg)](https://github.com/chenenyu/img-optimizer-gradle-plugin/stargazers)
 
 [中文版](README-zh-rCN.md)
 
 # img-optimizer-gradle-plugin
 
->A gradle plugin for optimizing PNGs, effctively reducing APK size. Both extreme compression and lossless compression are available.
+>A gradle plugin for optimizing PNGs, effectively reducing APK size. Both extreme compression and lossless compression are available.
 
 ### Available OS
 
@@ -17,11 +17,12 @@ Add the following Gradle configuration to your build.gradle:
 ```
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
+        // jcenter()
     }
     dependencies {
         ...
-		classpath 'com.chenenyu:img-optimizer:latestVersion'
+        classpath 'com.chenenyu:img-optimizer:latestVersion'
     }
 }
 ```  
@@ -60,10 +61,6 @@ optimizerOptions {
 ### Note
 
 If there are multiple modules in your project, please add the optimizer in where you want to execute optimization since each module is independent. The optimizer will generate log file in the root directory of current module.
-
-### Other libraries
-
-[SuperAdapter](https://github.com/byteam/SuperAdapter): Adapter(BaseAdapter, RecyclerView.Adapter) wrapper for Android.
 
 ### License
 

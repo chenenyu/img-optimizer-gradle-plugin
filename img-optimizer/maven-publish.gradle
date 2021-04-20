@@ -1,5 +1,6 @@
-apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'maven-publish'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 def GROUP = 'com.chenenyu'
 def ARTIFACT_ID = 'img-optimizer'
@@ -8,48 +9,88 @@ def VERSION = '1.2.0'
 group = GROUP
 version = VERSION
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    from sourceSets.main.allSource
+// task to generate source.jar
+task sourcesJar(type: Jar) {
+    group 'build'
     archiveClassifier.set('sources')
 }
 
+javadoc {
+    options.encoding = 'UTF-8'
+    failOnError false
+}
+
+// task to generate javadoc.jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    group 'build'
+    from javadoc.getDestinationDir()
+    archiveClassifier.set('javadoc')
+}
+
 artifacts {
+    archives jar
+    archives javadocJar
     archives sourcesJar
 }
 
-publishing {
-    publications {
-        bintray(MavenPublication) {
-            from components.java
+signing {
+    sign configurations.archives
+}
 
-            groupId GROUP
-            artifactId ARTIFACT_ID
-            version VERSION
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment ->
+                signing.signPom(deployment)
+            }
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
 
-            artifact sourcesJar
+            pom.project {
+                packaging 'jar'
+                groupId GROUP
+                artifactId ARTIFACT_ID
+                version VERSION
+                name ARTIFACT_ID
+                description 'A gradle plugin for optimizing PNG.'
+                url 'https://github.com/chenenyu/img-optimizer-gradle-plugin'
+                scm {
+                    url 'https://github.com/chenenyu/img-optimizer-gradle-plugin'
+                    connection 'scm:git@github.com:chenenyu/img-optimizer-gradle-plugin.git'
+                    developerConnection 'scm:git@github.com:chenenyu/img-optimizer-gradle-plugin.git'
+                }
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'chenenyu'
+                        name 'chenenyu'
+                        email 'chenenyux@gmail.com'
+                    }
+                }
+            }
         }
     }
 }
 
-bintray {
-    Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-
-    publications = ['bintray']
-    pkg {
-        repo = "maven"
-        name = ARTIFACT_ID
-        vcsUrl = 'https://github.com/chenenyu/img-optimizer-gradle-plugin.git'
-        desc = "Image optimizer gradle plugin."
-        labels = ["gradle", "gradle-plugin", "Android Studio", "Optimize"]
-        licenses = ["Apache-2.0"]
-        publicDownloadNumbers = true
-        publish = true
-//        version {
-//            name = VERSION
-//            vcsTag = VERSION
+//publishing {
+//    publications {
+//        release(MavenPublication) {
+//            from components.java
+//
+//            groupId GROUP
+//            artifactId ARTIFACT_ID
+//            version VERSION
+//
+//            artifact sourcesJar
 //        }
-    }
-}
+//    }
+//}
