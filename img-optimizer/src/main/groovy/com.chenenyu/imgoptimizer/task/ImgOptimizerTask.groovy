@@ -5,7 +5,6 @@ import com.chenenyu.imgoptimizer.util.Logger
 import groovy.io.FileType
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 import java.security.InvalidParameterException
@@ -17,23 +16,21 @@ import java.security.InvalidParameterException
 class ImgOptimizerTask extends DefaultTask {
 
     @Input
-    @Optional
     String suffix
 
     @Input
-    @Optional
     int triggerSize
 
     @Input
-    @Optional
     String type
 
     /**
      * 图片文件夹(drawable-xxx, mipmap-xxx)
      */
+    @Input
     List<File> imgDirs
 
-    Logger log
+    private Logger log
 
     @TaskAction
     void optimize() {

@@ -1,5 +1,4 @@
-//apply plugin: 'maven-publish'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 def GROUP = 'com.chenenyu'
@@ -13,6 +12,7 @@ version = VERSION
 task sourcesJar(type: Jar) {
     group 'build'
     archiveClassifier.set('sources')
+    from sourceSets.main.java.srcDirs
 }
 
 javadoc {
@@ -27,70 +27,67 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     archiveClassifier.set('javadoc')
 }
 
-artifacts {
-    archives jar
-    archives javadocJar
-    archives sourcesJar
-}
+//artifacts {
+//    archives jar
+//    archives javadocJar
+//    archives sourcesJar
+//}
 
-signing {
-    sign configurations.archives
-}
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                // https://central.sonatype.org/publish/publish-gradle/
+                def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+                def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment ->
-                signing.signPom(deployment)
+                credentials {
+                    username = ossrhUsername
+                    password = ossrhPassword
+                }
             }
-            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
-            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
+        }
 
-            pom.project {
-                packaging 'jar'
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+
                 groupId GROUP
                 artifactId ARTIFACT_ID
                 version VERSION
-                name ARTIFACT_ID
-                description 'A gradle plugin for optimizing PNG.'
-                url 'https://github.com/chenenyu/img-optimizer-gradle-plugin'
-                scm {
-                    url 'https://github.com/chenenyu/img-optimizer-gradle-plugin'
-                    connection 'scm:git@github.com:chenenyu/img-optimizer-gradle-plugin.git'
-                    developerConnection 'scm:git@github.com:chenenyu/img-optimizer-gradle-plugin.git'
-                }
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                pom {
+                    packaging 'jar'
+                    name = "${GROUP}:${ARTIFACT_ID}"
+                    description = 'A gradle plugin for optimizing PNG.'
+                    url = 'https://github.com/chenenyu/img-optimizer-gradle-plugin'
+                    scm {
+                        url = 'https://github.com/chenenyu/img-optimizer-gradle-plugin'
+                        connection = 'scm:git@github.com:chenenyu/img-optimizer-gradle-plugin.git'
+                        developerConnection = 'scm:git@github.com:chenenyu/img-optimizer-gradle-plugin.git'
                     }
-                }
-                developers {
-                    developer {
-                        id 'chenenyu'
-                        name 'chenenyu'
-                        email 'chenenyux@gmail.com'
+                    licenses {
+                        license {
+                            name = 'The Apache Software License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'chenenyu'
+                            name = 'chenenyu'
+                            url = 'https://github.com/chenenyu'
+                        }
                     }
                 }
             }
         }
     }
-}
 
-//publishing {
-//    publications {
-//        release(MavenPublication) {
-//            from components.java
-//
-//            groupId GROUP
-//            artifactId ARTIFACT_ID
-//            version VERSION
-//
-//            artifact sourcesJar
-//        }
-//    }
-//}
+    signing {
+        sign publishing.publications.release
+    }
+}
