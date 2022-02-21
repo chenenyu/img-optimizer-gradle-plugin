@@ -18,7 +18,6 @@ Add the following Gradle configuration to your build.gradle:
 buildscript {
     repositories {
         mavenCentral()
-        // jcenter()
     }
     dependencies {
         ...
